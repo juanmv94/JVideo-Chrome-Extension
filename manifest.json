@@ -1,0 +1,26 @@
+{
+  "name": "J-Video",
+  "version": "1.0",
+  "description": "Aisla y descarga videos online",
+  "permissions": ["activeTab", "declarativeContent", "downloads"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/ico16.png",
+      "32": "icons/ico32.png",
+      "48": "icons/ico48.png",
+      "128": "icons/ico128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/ico16.png",
+    "32": "icons/ico32.png",
+    "48": "icons/ico48.png",
+    "128": "icons/ico128.png"
+  },
+  "manifest_version": 2
+}
