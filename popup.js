@@ -8,9 +8,9 @@ var vidurl;
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
         tabs[0].id,
-        {code: 'try{document.getElementsByTagName("video")[0].src;} catch(err){\
+        {code: 'try{document.getElementsByTagName("video")[0].currentSrc;} catch(err){\
 		var iframes=document.getElementsByTagName("iframe");\
-		for (let i=0; i<iframes.length;i++) {try{iframes[i].contentWindow.document.getElementsByTagName("video")[0].src; break;} catch(err){}}\
+		for (let i=0; i<iframes.length;i++) {try{iframes[i].contentWindow.document.getElementsByTagName("video")[0].currentSrc; break;} catch(err){}}\
 		\}'},
 		function(result){
 			vidurl=result[0];
@@ -47,8 +47,6 @@ descargar.onclick = function(element) {
 if (vidurl==null && vidurl!="") return;
 chrome.downloads.download({
   url: vidurl
-});
-window.close();
+},function(v_id){chrome.tabs.create({url:"chrome://downloads/"},null);window.close();});
 };
-
 };
