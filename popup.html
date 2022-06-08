@@ -7,19 +7,100 @@
 		font-family: arial;
 		font-size: 18px;
 		background-image:url(background.png);
+		width: 252px;
+		text-align: center;
 	}
-	button {
-		font-size: 16px;
-		width:160px;
+	div {
+		display: block;
+		padding-bottom: 2px;
+	}
+	
+	#abrir, #descargar, #copiar {
+		font-weight: bold;
+		width:80px;
 		height:32px;
-		margin:2px;
+	}
+	
+	#velocidades button {
+		width: 32px;
+		padding: 0;
+	}
+	
+	.icono {
+		position: relative;
+		padding-left: 26px;
+		cursor: pointer;
+	}
+
+	.VIDEO .checkmark {
+		background-image: url("icons/video.png");
+		/* https://icons-for-free.com/download-icon-movie+play+video+icon-1320168052202641080_64.png */
+	}
+
+	.AUDIO .checkmark {
+		background-image: url("icons/audio.png");
+		/* https://icons-for-free.com/download-icon-audio+itunes+itunes+logo+itunes+store+music+music+note+icon-1320196076849257893_64.png */
+	}
+
+	.icono input {
+		width: 0;
+	}
+
+	.checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 32px;
+		width: 32px;
+		background-size: 32px;
+		filter: grayscale(1);
+		opacity: 0.5;
+		transition: opacity 1s;
+	}
+
+	.icono:hover input ~ .checkmark {
+		opacity: 1;
+	}
+
+	.icono input:checked ~ .checkmark {
+		filter: grayscale(0);
+		opacity: 1;
 	}
     </style>
   </head>
   <body>
-    <script src="popup.js"></script>
-  	<span id="texto" style="color:red;">Video no detectado</span><br/>
-    <button id="ver" disabled>Ver video</button><br/>
-	<button id="descargar" disabled>Descargar video</button>
+  	<div><span id="texto" style="color:red;">Ningún medio detectado</span></div>
+	<div id="iconos" style="height:32px;">
+	<!--label class="icono VIDEO">
+	  <input type="radio" checked="checked" name="radio">
+	  <span class="checkmark"></span>
+	</label>
+	<label class="icono AUDIO">
+	  <input type="radio" name="radio">
+	  <span class="checkmark"></span>
+	</label-->
+	</div>
+	<div>
+    <button id="abrir" disabled>Abrir</button>
+	<button id="descargar" disabled>Descargar</button>
+	<button id="copiar" disabled>Copiar</button>
+	</div>
+	<div id="velocidades" style="display: flex;">
+    <button disabled>0.5</button>
+	<button disabled>0.75</button>
+	<button style="filter: sepia(0.75);" disabled>1</button>
+	<button disabled>1.25</button>
+	<button disabled>1.5</button>
+	<button disabled>1.75</button>
+	<button disabled>2</button>
+	<button disabled>4</button>
+	</div>
+	<div id="otros" style="display: flex;">
+	<button id="audio0" disabled>A+</button>
+	<button id="audio1" disabled>A=</button>
+	<button id="fin" disabled>Fin</button>
+	<input type="text" id="url" style="width: 100%;" readonly disabled>
+	</div>
+	<script src="popup.js"></script>
   </body>
 </html>
