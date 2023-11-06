@@ -1,4 +1,5 @@
 const depthlimit=2;
+var downloadID=null;
 
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 	function tabscript(funcion,callback,...params) {
@@ -69,7 +70,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 	}
 	
 	function gotofin() {
-		tabscript(()=>jvideo_sel.currentTime=jvideo_sel.duration-3, ()=>{});
+		tabscript(()=>jvideo_sel.currentTime=jvideo_sel.duration-2, ()=>{});
 	}
 	
 });
@@ -80,10 +81,15 @@ abrir.onclick = function(element) {
 };
 
 descargar.onclick = function(element) {
-	chrome.downloads.download({
-	  url: url.value
-	},function(v_id){chrome.tabs.create({url:"chrome://downloads/"},null);window.close();});
+	chrome.downloads.download({url: url.value}, x=>{downloadID=x;});
 }
+chrome.downloads.onChanged.addListener(downloadItem=>{
+	console.log(downloadItem);
+	if (downloadID===downloadItem.id && !downloadItem.error) {
+		chrome.tabs.create({url:"chrome://downloads/"},null);
+		window.close();
+	}
+});
 
 copiar.onclick = function(element) {
 	navigator.clipboard.writeText(url.value);

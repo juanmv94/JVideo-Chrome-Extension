@@ -1,6 +1,6 @@
 {
   "name": "J-Video",
-  "version": "2.0",
+  "version": "2.1",
   "manifest_version": 3,
   "description": "Aisla y descarga videos online",
   "permissions": ["activeTab", "downloads", "scripting"],
