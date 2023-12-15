@@ -26,6 +26,20 @@
 		padding: 0;
 	}
 	
+	#legacymode {
+		width: 22px;
+		filter: sepia(1) saturate(4) hue-rotate(300deg);
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+		animation-timing-function: linear;
+	}
+	
+	@keyframes legacymodean {
+		from {filter: sepia(1) saturate(4) hue-rotate(300deg);}
+		to {filter: sepia(1) saturate(10) hue-rotate(300deg);}
+	}
+	
 	.icono {
 		position: relative;
 		padding-left: 26px;
@@ -100,6 +114,7 @@
 	<button id="audio1" disabled>A=</button>
 	<button id="fin" disabled>Fin</button>
 	<input type="text" id="url" style="width: 100%;" readonly disabled>
+	<button id="legacymode">L</button>
 	</div>
 	<script src="popup.js"></script>
   </body>

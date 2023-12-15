@@ -3,9 +3,15 @@ var downloadID=null;
 
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 	function tabscript(funcion,callback,...params) {
-		chrome.scripting.executeScript({target: {tabId: tabs[0].id}, world: chrome.scripting.ExecutionWorld.MAIN, func: funcion, args: params}, res=>callback(res[0].result));
+		chrome.scripting.executeScript({target: {tabId: tabs[0].id}, injectImmediately:true, world: chrome.scripting.ExecutionWorld.MAIN, func: funcion, args: params}, res=>callback(res[0].result));
 	}
 	
+	function disableMediaSourceListener() {
+		chrome.webRequest.onHeadersReceived.removeListener(disableMediaSourceListener);
+		tabscript(()=>{window.MediaSource=undefined;}, ()=>{});
+		window.close();
+	}
+
 	tabscript(limit=>{
 		jvideo_res=[];
 		function explora(dom,depth) {
@@ -49,14 +55,17 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 				texto.innerHTML="Medio no iniciado";
 				texto.style.color="#FF3300";
 				abrir.disabled=true; descargar.disabled=true; copiar.disabled=true;
+				legacymode.style.animationName="";
 			} else if (url.value.startsWith("blob")) {
 				texto.innerHTML="Medio no descargable";
 				texto.style.color="#FF3300";
 				abrir.disabled=true; descargar.disabled=true; copiar.disabled=true;
+				legacymode.style.animationName="legacymodean";
 			} else {
 				texto.innerHTML="¡Medio descargable!";
 				texto.style.color="green";
 				abrir.disabled=false; descargar.disabled=false; copiar.disabled=false;
+				legacymode.style.animationName="";
 			}
 		},i);
 	}
@@ -73,6 +82,10 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		tabscript(()=>jvideo_sel.currentTime=jvideo_sel.duration-2, ()=>{});
 	}
 	
+	legacymode.onclick=()=>{
+		chrome.webRequest.onHeadersReceived.addListener(disableMediaSourceListener, {tabId: tabs[0].id, urls: [tabs[0].url]});
+		chrome.tabs.reload(tabs[0].id);
+	}
 });
 
 abrir.onclick = function(element) {
