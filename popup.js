@@ -108,3 +108,36 @@ copiar.onclick = function(element) {
 	navigator.clipboard.writeText(url.value);
 	window.close();
 }
+
+chromecast.onclick = function(element) {
+	var sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
+	var apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
+	chrome.cast.initialize(apiConfig, ()=>console.log("ChromeCast inizializado"), onError);
+	chrome.cast.requestSession(onSessionRequestSuccess, onError);
+
+	function onError(e) {
+	  alert("Fallo de ChromeCast");
+	  console.error(e);
+	}
+
+	function sessionListener(e) {
+	  console.log('sessionListener', e);
+	}
+
+	function receiverListener(availability) {
+	  console.log('receiverListener', availability);
+	  //if(availability === chrome.cast.ReceiverAvailability.AVAILABLE)
+	}
+
+	function onSessionRequestSuccess(session) {
+	  console.log('onSessionRequestSuccess', session);
+	  var mediaInfo = new chrome.cast.media.MediaInfo(url.value || prompt("URL a transmitir:"));
+	  var request = new chrome.cast.media.LoadRequest(mediaInfo);
+	  session.loadMedia(request, onMediaLoadSuccess, onError);
+	  window.close();
+	}
+
+	function onMediaLoadSuccess(e) {
+	  console.log('onMediaLoadSuccess', e);
+	}
+}

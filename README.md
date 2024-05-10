@@ -13,6 +13,7 @@ JVideo solves all these problems:
 * It allows you to open a new video/audio tab without anything else (ads, iframes,...) by opening the (\*.mp4, \*.mp3,...) media link
 * It allows you to download the video/audio file (\*.mp4, \*.mp3,...)
 * It allows you to copy video/audio link
+* It allows you to send video to a ChromeCast device
 
 ## How to use
 First, you must go to a web page with an embedded video/audio. Sometimes it will be necessary to start playing it so that the page loads it.
@@ -27,6 +28,7 @@ You can also press the buttons with numbers to change media playback speed, even
 * **A+**: To increase pitch with playback speed
 * **A=**: To preserve pitch with playback speed (default)
 * **Fin**: Skip to the end of the media (useful for skipping ads)
+* **C**: Send video to ChromeCast device
 * **L**: Reload tab in "Legacy Mode" (see below)
 
 ## Limitations and Solutions

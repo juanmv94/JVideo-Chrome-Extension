@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <title>J-VIDEO</title>
     <style>
     body {
 		font-family: arial;
@@ -26,8 +27,12 @@
 		padding: 0;
 	}
 	
-	#legacymode {
+	#otros button {
 		width: 22px;
+		padding: 0;
+	}
+	
+	#legacymode {
 		filter: sepia(1) saturate(4) hue-rotate(300deg);
 		animation-duration: 1s;
 		animation-iteration-count: infinite;
@@ -114,8 +119,10 @@
 	<button id="audio1" disabled>A=</button>
 	<button id="fin" disabled>Fin</button>
 	<input type="text" id="url" style="width: 100%;" readonly disabled>
+	<button id="chromecast">C</button>
 	<button id="legacymode">L</button>
 	</div>
+	<script src="cast_sender.js"></script>
 	<script src="popup.js"></script>
   </body>
 </html>
